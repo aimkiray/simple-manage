@@ -3,6 +3,7 @@ package com.nekuata.manage.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Customer {
@@ -14,14 +15,19 @@ public class Customer {
     @GeneratedValue
     private Long id;
 
+    @Size(min=1, max=100)
     private String name;
 
+    @Size(min=1, max=100)
     private String site;
 
+    @Size(min=1, max=100)
     private String email;
 
+    @Size(min=1, max=15)
     private String phone;
 
+    @Size(min=1, max=25)
     private String tax;
 
     public Long getId() {

@@ -5,11 +5,11 @@
     <title>用户管理</title>
 
     <#--bootstrap-->
-    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <#--awesome-->
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <#--datatables-->
-    <link href="https://cdn.bootcss.com/datatables/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
 </head>
 
@@ -27,10 +27,10 @@
         <thead>
         <tr>
             <th><input type="checkbox"></th>
-            <th>Id</th>
             <th>名称</th>
             <th>地址</th>
             <th>电话</th>
+            <th>邮箱</th>
             <th>税号</th>
             <th>操作</th>
         </tr>
@@ -42,11 +42,13 @@
 </body>
 <#--jquery-->
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<#--bootstrap-->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <#--bootbox-->
 <script src="https://cdn.bootcss.com/bootbox.js/4.4.0/bootbox.min.js"></script>
 <#--dataTables-->
 <script src="https://cdn.bootcss.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.bootcss.com/datatables/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.bootcss.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
 
 <script>
 
@@ -113,17 +115,17 @@
                 "orderable": false    //包含上样式名‘nosort’的禁止排序
             }],
             ajax: {
-                url: '/customer',
+                url: '/api/customer',
                 type: 'GET',
                 dataType: "json"
             },
             //列表表头字段
             columns: [
                 {data : "id", "orderable": false, "width": "2%", "render": function(data,type,row,meta){ return '<input type="checkbox" name="'+data+'">'; } },
-                {data : "id"},
                 {data : "name"},
                 {data : "site"},
                 {data : "phone"},
+                {data : "email"},
                 {data : "tax"},
                 {
                     data : "id",
@@ -143,7 +145,7 @@
     function updateCustomer(id) {
         $.ajax({
             url: "/customer/" + id,
-            type: "post",
+            type: "GET",
             dataType: "text",
             success: function (data) {
                 bootbox.dialog({
@@ -173,20 +175,18 @@
             callback: function (result) {
                 if (result) {
                     $.ajax({
-                        url: "/customer/" + id,
-                        type: "post",
+                        url: "/api/customer/" + id,
+                        type: "DELETE",
                         dataType: "text",
                         success: function () {
                             customerTable().Init.ajax.reload();
                             $(".bootbox-close-button").click();
                         },
                         error: function () {
-                            alert("删除失败");
+                            alert("删除失败！");
                             $(".bootbox-close-button").click();
                         }
                     });
-                } else {
-                    $(".bootbox-close-button").click();
                 }
             }
         });
@@ -200,7 +200,7 @@
         $("#btn_add").click(function () {
             $.ajax({
                 url: "/customer/add",
-                type: "post",
+                type: "GET",
                 dataType: "text",
                 success: function (data) {
                     bootbox.dialog({

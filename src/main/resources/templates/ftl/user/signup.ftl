@@ -77,7 +77,7 @@
         <br>
         <span style="color: aqua">数据库：H2内存模式</span>
         <br>
-        <span style="color: aqua">连接池：Spring Data JPA</span>
+        <span style="color: aqua">持久层框架：Spring Data JPA</span>
         <br>
         <span style="color: aqua">数据库管理：/console</span>
     </div>

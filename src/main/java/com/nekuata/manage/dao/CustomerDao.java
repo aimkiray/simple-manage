@@ -9,4 +9,5 @@ public interface CustomerDao extends JpaRepository<Customer, Long> {
 
     Page<Customer> findAll(Pageable pageable);
 
+    Customer findCustomerByName(String name);
 }
