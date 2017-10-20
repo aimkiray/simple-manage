@@ -1,0 +1,41 @@
+spring:
+  # FreeMarker 配置
+  freemarker:
+    # 是否开启模板缓存
+    cache: false
+    # 编码格式
+    charset: UTF-8
+    # 模板的媒体类型设置
+    content-type: text/html
+    # 后缀设置 默认为 .ftl
+    suffix: .ftl
+    # Comma-separated list of template paths.
+    template-loader-path: classpath:/templates/ftl/
+    # Name of the RequestContext attribute for all views.
+    request-context-attribute: request
+    check-template-location: true
+    expose-request-attributes: true
+    expose-session-attributes: true
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+    platform: h2
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+    schema: classpath:/schema.sql
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /console
+      settings:
+        trace: false
+        web-allow-others: false
